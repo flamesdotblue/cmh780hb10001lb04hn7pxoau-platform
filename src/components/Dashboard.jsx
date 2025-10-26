@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Users, Calendar, Shield, Upload, Download, PlusCircle, Trash2, Pencil, CheckCircle2, XCircle, BarChart3 } from 'lucide-react';
-import { loadAll, saveAlumni, saveEvents, upsertAlumni, upsertEvent, removeAlumni, removeEvent, loadUser, setUserProfileVisibility } from '../lib/storage';
+import { loadAll, saveAlumni, saveEvents, upsertAlumni, upsertEvent, removeAlumni, removeEvent, setUserProfileVisibility } from '../lib/storage';
 import { toCSV, fromCSV } from '../lib/csv';
 
 const TabButton = ({ active, onClick, Icon, children }) => (
@@ -102,8 +102,7 @@ const Dashboard = ({ user }) => {
   };
 
   const rsvp = (evId, attending) => {
-    const { events: current } = loadAll();
-    const updated = current.map((ev) => {
+    const updated = events.map((ev) => {
       if (ev.id !== evId) return ev;
       const set = new Set(ev.attendees || []);
       if (attending) set.add(user.email); else set.delete(user.email);

@@ -81,5 +81,3 @@ export const setUserProfileVisibility = (email, publicFlag) => {
   const next = alumni.map((a) => a.email === email ? { ...a, public: !!publicFlag } : a);
   return saveAlumni(next);
 };
-
-export const saveUser as saveUserAlias = saveUser;
