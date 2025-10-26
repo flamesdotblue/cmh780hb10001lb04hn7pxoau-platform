@@ -1,7 +1,7 @@
 import React from 'react';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, LogOut } from 'lucide-react';
 
-const Navbar = () => {
+const Navbar = ({ user, onLogout }) => {
   return (
     <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-900/60 bg-slate-900/70 border-b border-white/10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -12,14 +12,23 @@ const Navbar = () => {
             </div>
             <span className="text-lg font-semibold tracking-tight">AlumniConnect</span>
           </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-slate-200">
-            <a className="hover:text-white" href="#features">Features</a>
-            <a className="hover:text-white" href="#stakeholders">Stakeholders</a>
-            <a className="hover:text-white" href="#cta">Get Started</a>
-          </nav>
-          <div className="flex items-center gap-3">
-            <a href="#cta" className="hidden sm:inline-flex items-center rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-medium hover:bg-white/10 transition">Request Demo</a>
-            <a href="#cta" className="inline-flex items-center rounded-md bg-gradient-to-r from-cyan-400 to-emerald-500 px-3 py-1.5 text-sm font-semibold text-slate-900 shadow-lg shadow-emerald-500/20">Launch</a>
+          <div className="flex items-center gap-3 text-sm">
+            {user ? (
+              <div className="flex items-center gap-3">
+                <span className="hidden sm:inline-block text-slate-300">{user.name} · {user.role}</span>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem('ac_user');
+                    onLogout?.();
+                  }}
+                  className="inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/5 px-3 py-1.5 hover:bg-white/10"
+                >
+                  <LogOut className="h-4 w-4" /> Logout
+                </button>
+              </div>
+            ) : (
+              <span className="text-slate-300">Welcome</span>
+            )}
           </div>
         </div>
       </div>
